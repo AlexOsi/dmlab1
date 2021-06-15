@@ -1,8 +1,8 @@
 #include "SetOfChars.h"
 
-std::string getInputString(const std::string& inputMessage) {
+std::string getInputString(const std::string& nameOfInputSet) {
     std::string inputString;
-    std::cout << inputMessage;
+    std::cout << "Enter elements of set " << nameOfInputSet << " in one line" << std::endl;
     std::getline(std::cin, inputString);
     auto endWithoutExtraChars = std::remove_if(inputString.begin(),
                                                inputString.end(),
@@ -21,8 +21,17 @@ void printAnswer(const std::string& nameOfStatement, bool isStatementRight) {
 }
 
 int main() {
+    /*
+     * Создан класс множества символов.
+     * Для него перегружены операторы с реализацией операций
+     * Вводим множества A, B, C, X
+     * Затем проверяем верность утверждений
+     * */
 
-    SetOfChars A{"abc"}, B{"cde"}, C{"ecv"}, X{"tba"};
+    SetOfChars A{getInputString("A")},
+    B{getInputString("B")},
+    C{getInputString("C")},
+    X{getInputString("X")};
 
     bool isFirstStatement = (A*B*C*!X)+(!A*C)+(!B*C)+(C*X) == C;
     printAnswer("First", isFirstStatement);
@@ -38,10 +47,6 @@ int main() {
 
     bool isFifthStatement = A-(A-B) == A*B;
     printAnswer("Fifth", isFifthStatement);
-//    SetOfChars A{getInputString("Enter elements of set A in one line:\n")};
-//    A.print();
-//    SetOfChars B{getInputString("Enter elements of set B in one line:\n")};
-//    SetOfChars C{getInputString("Enter elements of set C in one line:\n")};
     return 0;
 }
 
